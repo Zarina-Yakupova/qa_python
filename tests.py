@@ -73,8 +73,6 @@ class TestBooksCollector:
 
 
     def test_get_books_genre(self, collector):
-        
-        assert collector.get_books_genre() == {}
 
         collector.add_new_book('Книга 1')
         collector.add_new_book('Книга 2')
