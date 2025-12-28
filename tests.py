@@ -111,12 +111,45 @@ class TestBooksCollector:
 
 
     @pytest.mark.parametrize(
-        'book_name', 
-        ['Избранная книга 1', 'Избранная книга 2', 'Избранная книга 3']
+        'valid_book_name', 
+        ['К', 
+        'Книга', 
+        'Н_12']
         )
 
-    def test_add_book_in_favorites(self, book_name, collector):
+    def test_add_valid_book_in_favorites(self, valid_book_name, collector):
 
+        collector.add_new_book(valid_book_name)
+        collector.add_book_in_favorites(valid_book_name)
+        favorites = collector.get_list_of_favorites_books()
+        assert valid_book_name in favorites
+        assert len(favorites) == 1
+
+
+
+    @pytest.mark.parametrize(
+        'invalid_book_name', 
+        [None, 
+        '' * 1002, 
+        '']
+        )
+
+    def test_add_invalid_book_in_favorites(self, invalid_book_name, collector):
+
+        try:
+            collector.add_new_book(invalid_book_name)
+            collector.add_book_in_favorites(invalid_book_name)
+        except (TypeError, ValueError):
+            return
+    
+        favorites = collector.get_list_of_favorites_books()
+        assert invalid_book_name not in favorites
+
+
+
+    def test_add_book_in_favorites(self, collector):
+
+        book_name = 'Книга 1'
         collector.add_new_book(book_name)
 
         collector.add_book_in_favorites(book_name)
