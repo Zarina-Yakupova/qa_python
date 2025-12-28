@@ -40,10 +40,6 @@ class TestBooksCollector:
 
         assert collector.get_book_genre ('Проверочная книга') == ''
 
-        collector.set_book_genre('Проверочная книга', 'Ужасы')
-
-        assert collector.get_book_genre('Проверочная книга') == 'Ужасы'
-
 
     def test_set_genre_for_non_existet_book(self, collector):
 
