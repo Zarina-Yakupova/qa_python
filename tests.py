@@ -130,20 +130,18 @@ class TestBooksCollector:
     @pytest.mark.parametrize(
         'invalid_book_name', 
         [None, 
-        '' * 1002, 
+        '' * 41, 
         '']
         )
 
     def test_add_invalid_book_in_favorites(self, invalid_book_name, collector):
 
-        try:
-            collector.add_new_book(invalid_book_name)
-            collector.add_book_in_favorites(invalid_book_name)
-        except (TypeError, ValueError):
-            return
+        collector.add_new_book(invalid_book_name)
+        collector.add_book_in_favorites(invalid_book_name)
     
         favorites = collector.get_list_of_favorites_books()
         assert invalid_book_name not in favorites
+        assert len(favorites) == 0
 
 
 
